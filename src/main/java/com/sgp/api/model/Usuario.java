@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Data // Facilitador dos GETTER'S AND SETTER'S
 @AllArgsConstructor // Facilitador do CONSTRUTOR com ARGUMENTOS
 @NoArgsConstructor  // Facilitador do CONSTRUTOR VAZIO
-@Entity(name = "tb_usuario") // Nomeção da classe como entidade e nomeando a tabela para o banco de dados
+@Entity(name = "tb_usuarios") // Nomeção da classe como entidade e nomeando a tabela para o banco de dados
 
 public class Usuario {
   
