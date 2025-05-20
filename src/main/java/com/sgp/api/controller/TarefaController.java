@@ -11,42 +11,42 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sgp.api.model.Usuario;
-import com.sgp.api.services.UsuarioServices;
+import com.sgp.api.model.Tarefa;
+import com.sgp.api.services.TarefaService;
 
 @RestController
-@RequestMapping("/usuarios")
-public class UsuarioController {
+@RequestMapping("/tarefas")
+public class TarefaController {
   
   @Autowired
-  private UsuarioServices usuarioServices;
+  private TarefaService tarefaService;
 
   // 1º EndPoint
   @GetMapping
-  public ResponseEntity<List<Usuario>> listarUsuarios(){
-    return ResponseEntity.ok().body(usuarioServices.carregarUsuarioCadastrado());
+  public ResponseEntity<List<Tarefa>> listarTarefas(){
+    return ResponseEntity.ok().body(tarefaService.carregarTarefaCadastrada());
   }
 
   // 2º EndPoint
   @GetMapping("/{id}")
-  public ResponseEntity<Optional<Usuario>> buscarUsuarioPeloId(@PathVariable("id")Long id){
-    Optional<Usuario> usuario = usuarioServices.obterDadosUsuarioPeloId(id);
-    
-    if(usuario.isEmpty()){
+  public ResponseEntity<Optional<Tarefa>> listarTarefasPeloId(@PathVariable("id")Long id){
+    Optional<Tarefa> tarefa = tarefaService.carregarTarefaCadastradaPeloId(id);
+
+    if (tarefa.isEmpty()) {
       return ResponseEntity.notFound().build();
     }
-    return ResponseEntity.ok().body(usuario);
+    return ResponseEntity.ok().body(tarefa);
   }
 
   // 3º EndPoint
   @DeleteMapping("/{id}")
-  public ResponseEntity<Void> deletarUsuario(@PathVariable("id")Long id){
-    Optional<Usuario> usuario = usuarioServices.obterDadosUsuarioPeloId(id);
+  public ResponseEntity <Void> deletarTarefaPeloId(@PathVariable("id")Long id){
+    Optional<Tarefa> tarefa = tarefaService.carregarTarefaCadastradaPeloId(id);
 
-    if(usuario.isEmpty()){
+    if (tarefa.isEmpty()){
       return ResponseEntity.notFound().build();
     }
-    usuarioServices.excluirUsuario(id);
+    tarefaService.excluirTarefaPeloId(id);
 
     return ResponseEntity.noContent().build();
   }
