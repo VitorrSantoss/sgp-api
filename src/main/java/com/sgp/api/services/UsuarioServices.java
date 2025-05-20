@@ -9,13 +9,16 @@ import org.springframework.stereotype.Service;
 import com.sgp.api.model.Usuario;
 import com.sgp.api.repository.UsuarioRepository;
 
-// REGRA DE NEGÓCIO DO PROJETO
+//REGRA DE NEGÓCIO DO PROJETO
+//To Do: Lógica adicional (ex: calcular e retornar idade)
 
 @Service
 public class UsuarioServices {
   
+  @Autowired
+  private UsuarioRepository usuarioRepository;
+
   public List<Usuario> carregarUsuarioCadastrado(){
-    // To Do: Lógica adicional (ex: calcular e retornar idade)
     return usuarioRepository.findAll(); // Select * From tb_usuarios
   }
 
@@ -27,6 +30,4 @@ public class UsuarioServices {
     usuarioRepository.deleteById(id);
   }
 
-  @Autowired
-  private  UsuarioRepository usuarioRepository;
 }
