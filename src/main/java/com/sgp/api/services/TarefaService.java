@@ -30,4 +30,8 @@ public class TarefaService {
     tarefaRepository.deleteById(id);
   }
 
+  public Tarefa salvarTarefa(Tarefa tarefa){
+    return tarefaRepository.save(tarefa);
+  }
+
 }
