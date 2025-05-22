@@ -30,4 +30,8 @@ public class UsuarioServices {
     usuarioRepository.deleteById(id);
   }
 
+  public Usuario salvarUsuario(Usuario usuario){
+    return usuarioRepository.save(usuario);
+  }
+
 }
