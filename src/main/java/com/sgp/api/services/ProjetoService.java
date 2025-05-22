@@ -30,4 +30,8 @@ public class ProjetoService {
     projetoRepository.deleteById(id);
   }
 
+  public Projeto salvarProjeto(Projeto projeto){
+    return projetoRepository.save(projeto);
+  }
+
 }
