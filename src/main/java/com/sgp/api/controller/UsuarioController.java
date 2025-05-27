@@ -1,7 +1,7 @@
 package com.sgp.api.controller;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sgp.api.dto.UsuarioDTO;
 import com.sgp.api.model.Usuario;
 import com.sgp.api.services.UsuarioServices;
 
@@ -27,16 +28,16 @@ public class UsuarioController {
 
   // 1º EndPoint
   @GetMapping
-  public ResponseEntity<List<Usuario>> listarUsuarios(){
+  public ResponseEntity<List<UsuarioDTO>> listarUsuarios(){
     return ResponseEntity.ok().body(usuarioServices.carregarUsuarioCadastrado());
   }
 
   // 2º EndPoint
   @GetMapping("/{id}")
-  public ResponseEntity<Optional<Usuario>> buscarUsuarioPeloId(@PathVariable("id")Long id){
-    Optional<Usuario> usuario = usuarioServices.obterDadosUsuarioPeloId(id);
+  public ResponseEntity<UsuarioDTO> buscarUsuarioPeloId(@PathVariable("id")Long id){
+    UsuarioDTO usuario = usuarioServices.obterDadosUsuarioPeloId(id);
     
-    if(usuario.isEmpty()){
+    if(Objects.isNull(usuario)){
       return ResponseEntity.notFound().build();
     }
     return ResponseEntity.ok().body(usuario);
@@ -45,9 +46,9 @@ public class UsuarioController {
   // 3º EndPoint
   @DeleteMapping("/{id}")
   public ResponseEntity<Void> deletarUsuario(@PathVariable("id")Long id){
-    Optional<Usuario> usuario = usuarioServices.obterDadosUsuarioPeloId(id);
+    UsuarioDTO usuario = usuarioServices.obterDadosUsuarioPeloId(id);
 
-    if(usuario.isEmpty()){
+    if(Objects.isNull(usuario)){
       return ResponseEntity.notFound().build();
     }
     usuarioServices.excluirUsuario(id);
@@ -64,9 +65,9 @@ public class UsuarioController {
   // 5º EndPoint
   @PutMapping("/{id}")
   public ResponseEntity<Usuario> atualizarUsuario(@PathVariable("id") Long id, @RequestBody Usuario dadosUsuario){
-    Optional<Usuario> usuario = usuarioServices.obterDadosUsuarioPeloId(id);
+    UsuarioDTO usuario = usuarioServices.obterDadosUsuarioPeloId(id);
 
-    if(usuario.isEmpty()){
+    if(Objects.isNull(usuario)){
       return ResponseEntity.noContent().build();
     }
 

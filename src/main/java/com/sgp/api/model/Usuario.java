@@ -61,6 +61,8 @@ public class Usuario {
 
     Period periodo = Period.between(dataNascimento, dataAtual);
 
+    dto.setIdade(periodo.getYears());
+
     return dto;
   }
 
