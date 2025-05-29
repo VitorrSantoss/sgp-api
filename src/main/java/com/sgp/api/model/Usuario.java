@@ -3,6 +3,7 @@ package com.sgp.api.model;
 import java.time.LocalDate;
 import java.time.Period;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sgp.api.constants.StatusUsuario;
 import com.sgp.api.dto.UsuarioDTO;
 
@@ -13,6 +14,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,12 +31,23 @@ public class Usuario {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(nullable = false) // NOT NULL ou seja : O campo tem o preenchimento obrigatório
+  @NotNull(message = "CAMPO 'nome' É OBRIGATÓRIO") // O campo tem preenchimento obrigatório à nivel de REQUISIÇÃO
+  @Column(nullable = false) // NOT NULL ou seja : O campo tem o preenchimento obrigatório à nível de BANCO DE DADOS
   private String nome;
 
+  @NotNull(message = "CAMPO 'cpf' É OBRIGATÓRIO") // O campo tem preenchimento obrigatório à nivel de REQUISIÇÃO
+  @Pattern(
+    regexp = "\\d{3}.\\d{3}.\\d{3}-\\d{2}",             // Definindo padrão de validação para CPF no Brasil
+    message = "O CAMPO 'cpf' DEVE ESTAR NO FORMATO"
+  )
   @Column(nullable = false, unique = true) // NOT NULL ou seja : O campo tem o preenchimento obrigatório & UNICO
   private String cpf;
 
+
+  @Pattern(
+    regexp = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$", // Validação para endereços de email
+    message = "EMAIL INVÁLIDO"
+  )
   @Column(nullable = false, unique = true)
   private String email;
 
@@ -41,6 +55,7 @@ public class Usuario {
   private String senha;
 
   @Column(nullable = false)
+  @JsonFormat(pattern = "dd/MM/yyyy")
   private LocalDate dataNascimento;
 
   @Column(nullable = false)

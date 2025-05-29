@@ -28,7 +28,7 @@ public class Projeto {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(nullable = false)
+  @Column(nullable = false) // NOT NULL ou seja : O campo tem o preenchimento obrigatório à nível de BANCO DE DADOS
   private String nome;
 
   @Column(columnDefinition = "TEXT") // Definindo a coluna para TEXT como é no SQL
