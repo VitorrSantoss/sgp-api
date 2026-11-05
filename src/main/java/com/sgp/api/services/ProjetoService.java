@@ -1,11 +1,13 @@
 package com.sgp.api.services;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sgp.api.constants.StatusProjeto;
 import com.sgp.api.model.Projeto;
 import com.sgp.api.repository.ProjetoRepository;
 
@@ -31,6 +33,15 @@ public class ProjetoService {
   }
 
   public Projeto salvarProjeto(Projeto projeto){
+    // O formulário não tem estes campos, e o banco exige os dois.
+    if (projeto.getDataInicio() == null) {
+      projeto.setDataInicio(LocalDate.now());
+    }
+
+    if (projeto.getStatus() == null) {
+      projeto.setStatus(StatusProjeto.ATIVO);
+    }
+
     return projetoRepository.save(projeto);
   }
 
