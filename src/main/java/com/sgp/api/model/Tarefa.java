@@ -2,6 +2,7 @@ package com.sgp.api.model;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sgp.api.constants.Prioridade;
 import com.sgp.api.constants.StatusTarefa;
 
@@ -50,6 +51,7 @@ public class Tarefa {
 
   @ManyToOne
   @JoinColumn(nullable = false)
+  @JsonIgnoreProperties("tarefas")
   private Projeto projeto;
 
   @ManyToOne

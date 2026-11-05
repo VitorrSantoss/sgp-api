@@ -73,6 +73,11 @@ public class UsuarioController {
 
     dadosUsuario.setId(id);
 
+    // A tela de edição não tem campo de senha e envia o valor vazio.
+    if (dadosUsuario.getSenha() == null || dadosUsuario.getSenha().isBlank()) {
+      dadosUsuario.setSenha(usuarioServices.obterSenhaPeloId(id));
+    }
+
     return ResponseEntity.ok().body(usuarioServices.salvarUsuario(dadosUsuario));
   }
 

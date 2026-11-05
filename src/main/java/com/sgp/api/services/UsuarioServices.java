@@ -43,6 +43,10 @@ public class UsuarioServices {
     return null;
   }
 
+  public String obterSenhaPeloId(Long id){
+    return usuarioRepository.findById(id).map(Usuario::getSenha).orElse(null);
+  }
+
   public void excluirUsuario(Long id){
     usuarioRepository.deleteById(id);
   }

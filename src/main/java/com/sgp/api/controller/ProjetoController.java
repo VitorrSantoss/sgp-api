@@ -71,6 +71,21 @@ public class ProjetoController {
 
     dadosProjeto.setId(id);
 
+    // O formulário não envia estes campos: sem isso a edição os apagaria.
+    Projeto projetoAtual = projeto.get();
+
+    if (dadosProjeto.getDataInicio() == null) {
+      dadosProjeto.setDataInicio(projetoAtual.getDataInicio());
+    }
+
+    if (dadosProjeto.getDataConclusao() == null) {
+      dadosProjeto.setDataConclusao(projetoAtual.getDataConclusao());
+    }
+
+    if (dadosProjeto.getStatus() == null) {
+      dadosProjeto.setStatus(projetoAtual.getStatus());
+    }
+
     return ResponseEntity.ok().body(projetoService.salvarProjeto(dadosProjeto));
 
   }

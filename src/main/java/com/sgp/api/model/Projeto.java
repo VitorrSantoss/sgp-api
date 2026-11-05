@@ -1,7 +1,9 @@
 package com.sgp.api.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sgp.api.constants.StatusProjeto;
 
 import jakarta.persistence.Column;
@@ -13,9 +15,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @AllArgsConstructor
@@ -46,4 +51,10 @@ public class Projeto {
   @ManyToOne // Indica um relacionamento "Muitos-para-Um" entre entidades
   @JoinColumn(nullable = false) // Personaliza a coluna de junção (chave estrangeira)
   private Usuario responsavel;
+
+  @OneToMany(mappedBy = "projeto")
+  @JsonIgnoreProperties("projeto") // Evita o ciclo projeto > tarefa > projeto no JSON
+  @ToString.Exclude
+  @EqualsAndHashCode.Exclude
+  private List<Tarefa> tarefas;
 }
